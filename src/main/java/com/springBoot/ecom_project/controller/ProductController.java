@@ -1,14 +1,27 @@
 package com.springBoot.ecom_project.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.springBoot.ecom_project.model.Product;
+import com.springBoot.ecom_project.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ProductController {
 
-    @RequestMapping("/")
-    public String greet(){
-        return "Hello World!";
+    @Autowired
+    private ProductService service;
+
+    @GetMapping("/products")
+    public List<Product> getAllProducts(){
+        return service.getAllProducts();
+    }
+
+    @GetMapping("/products/{id}")
+    public Product getProductById(@PathVariable int id){
+        return service.getProductById(id);
     }
 }
